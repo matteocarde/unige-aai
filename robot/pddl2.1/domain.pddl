@@ -8,6 +8,19 @@
     (allowed ?r - robot ?l - room))
 
 
+  (:durative-action move
+      :parameters (?r - robot ?a - room ?b - room)
+      :duration (= ?duration (move-time ?r))
+      :condition (and
+          (over all (allowed ?r ?b))
+          (at start (at-robot ?r ?a))
+          (at start (> (battery ?r) 1)))
+      :effect (and
+          (at start (not (at-robot ?r ?a)))
+          (at end (at-robot ?r ?b))
+          (at end (decrease (battery ?r) 1))
+      )
+  )
 
 	(:action pick
 		:parameters     (?o - obj ?l - room ?r - robot)
@@ -21,18 +34,5 @@
     :effect         (and (at-obj ?o ?l) (free ?r)
                     (not (carry ?o ?r))))
 
-                    (:durative-action move
-                        :parameters (?r - robot ?a - room ?b - room)
-                        :duration (= ?duration (move-time ?r))
-                        :condition (and
-                            (over all (allowed ?r ?b))
-                            (at start (at-robot ?r ?a))
-                            (at start (> (battery ?r) 20)))
-                        :effect (and
-                            (at start (not (at-robot ?r ?a)))
-                            (at end (at-robot ?r ?b))
-                            (at end (decrease (battery ?r) 20))
-                        )
-                    )
 
 )
