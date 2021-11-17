@@ -1,5 +1,5 @@
 (define (problem pb1)
-  (:domain gripper)
+  (:domain robot)
 	(:objects
       roomA - room roomB - room roomC - room
       ball1 - obj ball2 - obj eve - robot

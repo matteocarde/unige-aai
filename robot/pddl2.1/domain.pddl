@@ -14,11 +14,11 @@
       :condition (and
           (over all (allowed ?r ?b))
           (at start (at-robot ?r ?a))
-          (at start (> (battery ?r) 1)))
+          (at start (> (battery ?r) 20)))
       :effect (and
           (at start (not (at-robot ?r ?a)))
           (at end (at-robot ?r ?b))
-          (at end (decrease (battery ?r) 1))
+          (at end (decrease (battery ?r) 20))
       )
   )
 

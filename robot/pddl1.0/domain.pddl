@@ -1,4 +1,4 @@
-(define (domain gripper)
+(define (domain robot)
   (:requirements :strips :typing)
   (:types room obj robot)
   (:predicates
