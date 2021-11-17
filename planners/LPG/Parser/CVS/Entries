@@ -1,0 +1,13 @@
+/Makefile/1.4/Wed Sep  8 11:46:13 2010//
+/inst_easy.c/1.17/Wed Dec 14 13:13:24 2005//
+/inst_hard.c/1.16/Wed Dec 14 14:15:11 2005//
+/lex-fct_pddl.l/1.10/Wed May 11 08:40:08 2005//
+/lex-ops_pddl.l/1.7/Sun Sep 12 07:16:55 2004//
+/memory.c/1.16/Wed May 11 08:40:08 2005//
+/parse.c/1.18/Wed Dec 14 13:13:24 2005//
+/scan-fct_pddl.y/1.10/Thu Aug  4 11:42:16 2005//
+/scan-ops_pddl.y/1.18/Thu Dec 12 13:21:44 2013//
+/inst_final.c/1.43/Mon Apr 11 10:22:54 2016//
+/inst_pre.c/1.30/Wed Aug 29 10:50:02 2018//
+/inst_utils.c/1.104/Thu Aug 30 14:02:20 2018//
+D
