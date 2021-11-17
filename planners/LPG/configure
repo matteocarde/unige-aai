@@ -41,23 +41,23 @@ while [ TRUE ]; do
 	    TARGET="lpg-parser"
     	fi
 	shift;;
-	    
+
 	("-lpg-sun")
 	if [ $# -eq 1 ]; then
 	     CFLAGS="-O3  -DNDEBUG  -Wall -D__SUN__"
-	    
+
     	fi
 	shift;;
-	    
 
-	("-windebug") 
+
+	("-windebug")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-g  -Wall -D__WINLPG__"
 	    TARGET="winlpg-debug"
 	fi
         shift;;
 
-	("-win") 
+	("-win")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-O3  -DNDEBUG  -Wall -D__WINLPG__"
 	    TARGET="winlpg"
@@ -65,20 +65,20 @@ while [ TRUE ]; do
         shift;;
 
 
-	("-ipc4") 
+	("-ipc4")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-O3  -DNDEBUG  -Wall -D__ONLY_ONE_PLANNER__"
 	    TARGET="lpg"
 	fi
         shift;;
 
-	("-ipc4debug") 
+	("-ipc4debug")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-g  -D__MY_OUTPUT__  -Wall -D__ONLY_ONE_PLANNER__"
 	    TARGET="lpg-debug"
 	fi
         shift;;
-	("-debug") 
+	("-debug")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-g -D__MY_OUTPUT__ -Wall"
 	    TARGET="lpg-debug"
@@ -86,14 +86,14 @@ while [ TRUE ]; do
 	fi
         shift;;
 
-	("-round") 
+	("-round")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-D__ROUND_TO_01__ -static -Wall"
 	    TARGET="lpg"
 	fi
         shift;;
 
-	("-debuglm") 
+	("-debuglm")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-g -D__MY_OUTPUT__ -D__LOW_MEM__  -Wall"
 	    TARGET="lpg-debug"
@@ -107,7 +107,7 @@ while [ TRUE ]; do
         fi
         shift;;
 
-        ("-test") 
+        ("-test")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-O1 -D__MY_OUTPUT__ -DNDEBUG -Wall"
 	    TARGET="lpg-test"
@@ -128,14 +128,14 @@ while [ TRUE ]; do
         fi
         shift;;
 
-        ("-dtest") 
+        ("-dtest")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-g -D__MY_OUTPUT__ -Wall -D__TEST__ "
 	    TARGET="lpg-dtest"
 	fi
         shift;;
 
-        ("-efence") 
+        ("-efence")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-g -D__MY_OUTPUT__ -DNDEBUG -D__EFENCE__ "
 	    LIBS=" -lm -lefence"
@@ -143,7 +143,7 @@ while [ TRUE ]; do
 	fi
         shift;;
 
-        ("-gprof") 
+        ("-gprof")
 	if [ $# -eq 1 ]; then
 	    CFLAGS="-pg -Wall  -D__MY_OUTPUT__"
 	    TARGET="lpg-pg"
@@ -211,7 +211,7 @@ echo -e "Configure Makefile for $TARGET: $CFLAGS"
 
 echo "TARGET = $TARGET" >> $CONFIG
 echo "CFLAGS = $CFLAGS" >> $CONFIG
-echo "LIBS= $LIBS">> $CONFIG	    
+echo "LIBS= $LIBS">> $CONFIG
 echo "CC= $CC" >> $CONFIG
 make clean
 make
