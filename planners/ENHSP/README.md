@@ -1,4 +1,10 @@
+
+**ENHSP is undergoing a number of modifications for bug fixing and improvements. An improved version of ENHSP can already be found in the ENHSP-19 branch of this repository.
+For a more general overview of ENHSP and the different versions (ENHSP-19, ENHSP-20), have a look at ENHSP website: https://sites.google.com/view/enhsp/.
+If you want to use ENHSP for publishing experiments, please send me an [email](enricos83@gmail.com) so that I can give you the correct version.**
+
 I tried to write a easy to read README. But it could be the case that this is not as easy to read as it is supposed to be. So please send me an email if you have any question (of any kind) on the planner. My email is enricos83 at gmail dot com.
+
 
 # What is ENHSP?
 
@@ -7,27 +13,27 @@ This repository contains ENHSP, which stands for Expressive Numeric Heuristic Pl
 1. Classical Planning
 2. Numeric Planning with linear and non-linear (!!) expressions
 3. Planning with discretised autonomous processes and events
-4. Global constraints, which are the analogous of always constraints of PDDL 
+4. Global constraints, which are the analogous of always constraints of PDDL
 
 Note that the planner DOES NOT SUPPORT THE WHOLE ADL.
 
-##Novel Features and License!
+## Novel Features and License!
 This new version of ENHSP (v0.4) has been extended to support:
 1. discrete events!
 2. universal and existential quantification in formulas (action precondition, constraints and goals)
 3. negative preconditions
-4. novel heuristics based on landmarks and search techniques for planning with autonomous processes! 
+4. novel heuristics based on landmarks and search techniques for planning with autonomous processes!
 
 The text below can be outdated in some parts! Previous versions of the planner can be found checking out previous commits. The tag v0.3 is the last previous official version of the planner.
 License: The planner is now delivered with a [LGPL3](https://www.gnu.org/licenses/lgpl-3.0.en.html) license
 
-##Description
+## Description
 
 The planner reads in input a PDDL domain and problem file, and if you are lucky and your problem is not too complex, it provides you with a plan (a sequence of actions). In the case of planning with processes, the plan is a time-stamped plan (associated to each action, you find the time at which that instance of the action has to be executed). In dealing with autonomous processes, ENHSP discretises the problem (with a delta=1sec by default); so the plan is guaranteed to be valid only with respect to that discretisation.
 
 The input language for the planner is PDDL. PDDL is the standard de facto language to express planning problems. The domain file expresses the signature of your predicates, functions and all the actions/processes/events available, in a parametrized way. The problem file expresses the particular instance of the planning problem (e.g., what is the initial value of predicate A? What is the goal?). For more information on PDDL I suggest you to start from [its wikipedia page](https://en.wikipedia.org/wiki/Planning_Domain_Definition_Language#cite_note-opt-15), and follow the links. ENHSP supports PDDL 2.1 in particular, and PDDL+ (for the support of autonomous processes) and also events (only recently introduced). We also allow to employ global constraint as a direct construct of the language (via the :constraint syntax).
 
-The planner has been developed taking ideas from different papers (heuristics, decoupled deltas for discretisation): 
+The planner has been developed taking ideas from different papers (heuristics, decoupled deltas for discretisation):
 
 E. Scala, P. Haslum, S. Thiebaux: **Heuristics for Numeric Planning via Subgoaling**, IJCAI 2016
 
@@ -39,11 +45,11 @@ M. Ramirez, E. Scala, P. Haslum, S. Thiebaux: **Numerical Integration and Dynami
 
 D. Li, E. Scala, P. Haslum, S. Bogomolov **Effect-Abstraction Based Relaxation for Linear Numeric Planning** In IJCAI 2018
 
-The planner builds on the PPMaJaL library, which can be found [here](https://bitbucket.org/enricode/ppmajal-expressive-pddl-java-library/admin). PPMaJaL provides parsing, data structures, heuristics and search engine for ENHSP.
+The planner builds on the PPMaJaL library, which can be found [here](https://gitlab.com/enricos83/PPMAJAL-Expressive-PDDL-Java-Library). PPMaJaL provides parsing, data structures, heuristics and search engine for ENHSP.
 
 ## Dependencies
 
-The planner is written completely in [JAVA 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html). 
+The planner is written completely in [JAVA 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html).
 
 Before compiling make sure to have the Java machine installed on your computer. In Ubuntu this can be obtained executing the following commands from the bash:
 
@@ -64,7 +70,7 @@ In particular:
 - [Json Simple](https://github.com/fangyidong/json-simple). This is used to store information of the search space explored.
 - [Apache Commons CLI](https://commons.apache.org/proper/commons-cli/). This is used to facilitate parsing
 
-They are all open source projects, so is this planner and the library it depends on. For your convenience, *the necessary jar files are all within the ``libs`` folder*. 
+They are all open source projects, so is this planner and the library it depends on. For your convenience, *the necessary jar files are all within the ``libs`` folder*.
 
 
 ## Compilation, Running and Execution
@@ -87,13 +93,13 @@ domain_file and problem_file are the PDDL input files.
 
 - if the planner is used with -s gbfs -ties smaller_g and -h haddabs, the version obtained is equivalent to that used for the IJCAI-18 paper
 
-The planner can be also run using highly customized settings and other configurations not reported here. Using these configurations you can obtain more experimental versions of the planner, some of which are still not published; so use them with care. It may be useful to do so if your problem exhibits particular structures. As an example, when dealing with autonomous processes, ENHSP allows to decouple the delta to be used at execution level, heuristic level and validation level. 
+The planner can be also run using highly customized settings and other configurations not reported here. Using these configurations you can obtain more experimental versions of the planner, some of which are still not published; so use them with care. It may be useful to do so if your problem exhibits particular structures. As an example, when dealing with autonomous processes, ENHSP allows to decouple the delta to be used at execution level, heuristic level and validation level.
 
 To set these deltas as well as the other parameters (helpful actions, plan extraction so on and so forth), see the help running enhsp without any parameters
 
 It also seems that for some versions of Ubuntu it is required to set the JAVA encoding through the command:
 ```
-"export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8" 
+"export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8"
 ```
 
 # Examples
@@ -117,7 +123,7 @@ The instances used for IJCAI 2016 are in the ejcai16_benchmarks folder. The plan
 
 In the folder you find two files of the results collected, which slightly differs (from a merely quantitatively standpoint) from the one presented in the paper.
 
-##Ijcai 2017
+### Ijcai 2017
 
 The instances used for IJCAI 2017 are in the ijcai17_benchmarks folder. The planner used for those instances is:
 
@@ -125,14 +131,14 @@ The instances used for IJCAI 2017 are in the ijcai17_benchmarks folder. The plan
 
 The version with landmarks and no redundant constraints can be obtained using a combination of A^*, lm_actions for the heuristic and tie-breaking with larger g-values.
 
-##Ijcai 2018
+### Ijcai 2018
 
 The instances used for IJCAI 2018 are in the ijcai18_benchmarks folder. The planner used for those instances can be obtained running:
 
 - s gbfs -ties smaller_g and -h haddabs
 
 
-#Limitation and Known Caveats
+# Limitation and Known Caveats
 
 The planner is an experimental tool developed as a proof of concepts to verify empirically some of the results obtained during our research activities. This means that there could be bugs, or things that need better optimisation, refinement so on and so forth. If you use the planner, *please let me know*! I am gonna also start to collect all the known issues in the following list:
 
