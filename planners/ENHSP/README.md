@@ -1,4 +1,6 @@
 
+***NB: This is a copied version of Enrico Scala's repository of ENHSP that can be found [here](https://gitlab.com/enricos83/ENHSP-Public). All credits are his.***
+
 **ENHSP is undergoing a number of modifications for bug fixing and improvements. An improved version of ENHSP can already be found in the ENHSP-19 branch of this repository.
 For a more general overview of ENHSP and the different versions (ENHSP-19, ENHSP-20), have a look at ENHSP website: https://sites.google.com/view/enhsp/.
 If you want to use ENHSP for publishing experiments, please send me an [email](enricos83@gmail.com) so that I can give you the correct version.**
@@ -110,11 +112,11 @@ In the repository you will find examples on the types of problems that can be de
 
 Besides the examples, there are also domains and instances used to test the planner in the ECAI and IJCAI papers.
 
-##Ecai 2016
+## Ecai 2016
 
 The instances used for ECAI 2016 are in the ecai16_benchmarks folder. The planner used for those instances is 'aibr' which corresponds to a setting using A* plus the pure AIBR heuristic used in the paper. Note that this does not mean that this planner cannot obtain *better* performances using other settings of parameters. The analysis performed in the ECAI 2016 paper was intended *just to measure the effectiveness of the heuristic and of the relaxation behind it*
 
-##Ijcai 2016
+## Ijcai 2016
 
 The instances used for IJCAI 2016 are in the ejcai16_benchmarks folder. The planner used for those instances is:
 
