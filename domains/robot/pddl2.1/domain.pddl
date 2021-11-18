@@ -1,4 +1,4 @@
-(define (domain gripper)
+(define (domain robot)
   (:requirements :strips :typing :numeric-fluents :durative-actions)
   (:types room obj robot)
   (:functions(move-time  ?r - robot)(battery    ?r - robot))
