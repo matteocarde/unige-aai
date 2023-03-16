@@ -1,0 +1,53 @@
+Domain parsed
+Problem parsed
+Grounding..
+Grounding Time: 11
+Aibr Preprocessing
+|F|:36
+|X|:0
+|A|:72
+|P|:0
+|E|:0
+H1 Setup Time (msec): 7
+Setting horizon to:NaN
+Running WA-STAR
+h(n = s_0)=24.0
+f(n) = 24.0 (Expanded Nodes: 0, Evaluated States: 0, Time: 0.002) Frontier Size: 0
+f(n) = 25.0 (Expanded Nodes: 41, Evaluated States: 148, Time: 0.02) Frontier Size: 63
+f(n) = 26.0 (Expanded Nodes: 445, Evaluated States: 1397, Time: 0.06) Frontier Size: 468
+Problem Solved
+
+Found Plan:
+0.0: (pick ball3 roomA wally_right wally)
+1.0: (pick ball4 roomA wally_left wally)
+2.0: (move wally roomA roomB)
+3.0: (drop ball3 roomB wally_right wally)
+4.0: (drop ball4 roomB wally_left wally)
+5.0: (pick ball3 roomB eve_right eve)
+6.0: (move wally roomB roomA)
+7.0: (pick ball2 roomA wally_right wally)
+8.0: (pick ball1 roomA wally_left wally)
+9.0: (move wally roomA roomB)
+10.0: (drop ball2 roomB wally_right wally)
+11.0: (drop ball1 roomB wally_left wally)
+12.0: (pick ball1 roomB eve_left eve)
+13.0: (move eve roomB roomC)
+14.0: (drop ball3 roomC eve_right eve)
+15.0: (drop ball1 roomC eve_left eve)
+16.0: (move eve roomC roomB)
+17.0: (pick ball4 roomB eve_right eve)
+18.0: (pick ball2 roomB eve_left eve)
+19.0: (move eve roomB roomC)
+20.0: (drop ball4 roomC eve_right eve)
+21.0: (drop ball2 roomC eve_left eve)
+
+Plan-Length:22
+Metric (Search):22.0
+Planning Time (msec): 211
+Heuristic Time (msec): 86
+Search Time (msec): 112
+Expanded Nodes:1145
+States Evaluated:4552
+Fixed constraint violations during search (zero-crossing):0
+Number of Dead-Ends detected:1339
+Number of Duplicates detected:4719
