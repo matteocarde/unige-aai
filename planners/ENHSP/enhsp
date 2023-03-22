@@ -1,3 +1,0 @@
-#!/bin/bash 
-
-    java -classpath /Users/carde/Documents/Workspace/examples_aaai_pddl/planners/ENHSP/out/:/Users/carde/Documents/Workspace/examples_aaai_pddl/planners/ENHSP/libs/* ENHSP "$@"
