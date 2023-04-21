@@ -111,6 +111,7 @@
     )
   )
 
+  ; This action allows refueling at petrol station
   (:action refueling
     :parameters (?truck - truck ?station - location)
     :precondition (and
