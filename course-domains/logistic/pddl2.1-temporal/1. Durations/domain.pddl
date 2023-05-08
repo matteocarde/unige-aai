@@ -6,7 +6,7 @@
     truck airplane - vehicle
     package vehicle - physobj
     airport location - place
-    city place physobj - object
+    place city - reachable
   )
 
   (:predicates
@@ -19,6 +19,8 @@
 
   (:functions
     (distance ?a - city ?b - city)
+    (travel-time ?from - reachable ?to - reachable)
+    (flight-time ?from - airport ?to - airport)
     (distance-run ?t - truck)
     (max-distance ?t - truck)
   )
@@ -80,56 +82,61 @@
   )
 
   ; A truck can always drive between locations inside cities
-  (:action drive-truck
+  (:durative-action drive-truck
     :parameters (?truck - truck ?from - place ?to - place ?city - city)
-    :precondition (and
-      (at ?truck ?from)
-      (in-city ?from ?city)
-      (in-city ?to ?city)
+    :duration (= ?duration (travel-time ?from ?to))
+    :condition (and
+      (at start (at ?truck ?from))
+      (over all (in-city ?from ?city))
+      (over all (in-city ?to ?city))
     )
     :effect (and
-      (not (at ?truck ?from))
-      (at ?truck ?to)
+      (at start (not (at ?truck ?from)))
+      (at end (at ?truck ?to))
     )
   )
 
-  (:action drive-between-cities
+  (:durative-action drive-between-cities
     :parameters (?truck - truck ?fromPlace - place ?toPlace - place ?fromCity - city ?toCity - city)
-    :precondition (and
-      (at ?truck ?fromPlace)
-      (in-city ?fromPlace ?fromCity)
-      (in-city ?toPlace ?toCity)
-      (link ?fromCity ?toCity)
-      (<= (+ (distance-run ?truck) (distance ?fromCity ?toCity)) (max-distance ?truck))
+    :duration (= ?duration (travel-time ?fromCity ?toCity))
+    :condition (and
+      (at start (at ?truck ?fromPlace))
+      (over all (in-city ?fromPlace ?fromCity))
+      (over all (in-city ?toPlace ?toCity))
+      (over all (link ?fromCity ?toCity))
+      (at start (<= (+ (distance-run ?truck) (distance ?fromCity ?toCity)) (max-distance ?truck)))
     )
     :effect (and
-      (not (at ?truck ?fromPlace))
-      (at ?truck ?toPlace)
-      (increase
-        (distance-run ?truck)
-        (distance ?fromCity ?toCity))
+      (at start (not (at ?truck ?fromPlace)))
+      (at end (at ?truck ?toPlace))
+      (at end (increase
+          (distance-run ?truck)
+          (distance ?fromCity ?toCity)))
     )
   )
 
   ; This action allows refueling at petrol station
-  (:action refueling
+  (:durative-action refueling
     :parameters (?truck - truck ?station - location)
-    :precondition (and
-      (at ?truck ?station)
-      (is-petrol-station ?station)
+    :duration (= ?duration 3)
+    :condition (and
+      (at start (at ?truck ?station))
+      (at start (is-petrol-station ?station))
     )
     :effect (and
-      (assign (distance-run ?truck) 0)
+      (at end (assign (distance-run ?truck) 0))
     )
   )
 
   ; A plane can only fly between cities which have an airport
-  (:action fly-airplane
+  (:durative-action fly-airplane
     :parameters (?airplane - airplane ?from - airport ?to - airport)
-    :precondition (at ?airplane ?from)
+    :duration (= ?duration (flight-time ?from ?to))
+    :condition (and
+      (at start (at ?airplane ?from)))
     :effect (and
-      (not (at ?airplane ?from))
-      (at ?airplane ?to)
+      (at start (not (at ?airplane ?from)))
+      (at end (at ?airplane ?to))
     )
   )
 )
