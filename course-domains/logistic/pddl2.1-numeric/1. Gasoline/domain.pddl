@@ -11,7 +11,7 @@
 
   (:predicates
     (in-city ?loc - place ?city - city) ;If a place (airport or location) is in a city
-    (at ?obj - physobj ?loc - place) ;true if a phisical object (package, truck, airplane) is in a place (airport or location)
+    (at-place ?obj - physobj ?loc - place) ;true if a phisical object (package, truck, airplane) is in a place (airport or location)
     (in ?pkg - package ?veh - vehicle) ;true if a package is in a vehicle (truck or location)
     (link ?a - city ?b - city) ;true if two cities are connected
     (is-petrol-station ?l - location) ;true if the location l is a petrol station
@@ -28,11 +28,11 @@
   (:action load-truck
     :parameters (?pkg - package ?truck - truck ?loc - place)
     :precondition (and
-      (at ?truck ?loc)
-      (at ?pkg ?loc)
+      (at-place ?truck ?loc)
+      (at-place ?pkg ?loc)
     )
     :effect (and
-      (not (at ?pkg ?loc))
+      (not (at-place ?pkg ?loc))
       (in ?pkg ?truck)
     )
   )
@@ -42,11 +42,11 @@
   (:action load-airplane
     :parameters (?pkg - package ?airplane - airplane ?loc - place)
     :precondition (and
-      (at ?pkg ?loc)
-      (at ?airplane ?loc)
+      (at-place ?pkg ?loc)
+      (at-place ?airplane ?loc)
     )
     :effect (and
-      (not (at ?pkg ?loc))
+      (not (at-place ?pkg ?loc))
       (in ?pkg ?airplane)
     )
   )
@@ -56,12 +56,12 @@
   (:action unload-truck
     :parameters (?pkg - package ?truck - truck ?loc - place)
     :precondition (and
-      (at ?truck ?loc)
+      (at-place ?truck ?loc)
       (in ?pkg ?truck)
     )
     :effect (and
       (not (in ?pkg ?truck))
-      (at ?pkg ?loc)
+      (at-place ?pkg ?loc)
     )
   )
 
@@ -71,11 +71,11 @@
     :parameters (?pkg - package ?airplane - airplane ?loc - place)
     :precondition (and
       (in ?pkg ?airplane)
-      (at ?airplane ?loc)
+      (at-place ?airplane ?loc)
     )
     :effect (and
       (not (in ?pkg ?airplane))
-      (at ?pkg ?loc)
+      (at-place ?pkg ?loc)
     )
   )
 
@@ -83,28 +83,28 @@
   (:action drive-truck
     :parameters (?truck - truck ?from - place ?to - place ?city - city)
     :precondition (and
-      (at ?truck ?from)
+      (at-place ?truck ?from)
       (in-city ?from ?city)
       (in-city ?to ?city)
     )
     :effect (and
-      (not (at ?truck ?from))
-      (at ?truck ?to)
+      (not (at-place ?truck ?from))
+      (at-place ?truck ?to)
     )
   )
 
   (:action drive-between-cities
     :parameters (?truck - truck ?fromPlace - place ?toPlace - place ?fromCity - city ?toCity - city)
     :precondition (and
-      (at ?truck ?fromPlace)
+      (at-place ?truck ?fromPlace)
       (in-city ?fromPlace ?fromCity)
       (in-city ?toPlace ?toCity)
       (link ?fromCity ?toCity)
       (<= (+ (distance-run ?truck) (distance ?fromCity ?toCity)) (max-distance ?truck))
     )
     :effect (and
-      (not (at ?truck ?fromPlace))
-      (at ?truck ?toPlace)
+      (not (at-place ?truck ?fromPlace))
+      (at-place ?truck ?toPlace)
       (increase
         (distance-run ?truck)
         (distance ?fromCity ?toCity))
@@ -115,7 +115,7 @@
   (:action refueling
     :parameters (?truck - truck ?station - location)
     :precondition (and
-      (at ?truck ?station)
+      (at-place ?truck ?station)
       (is-petrol-station ?station)
     )
     :effect (and
@@ -126,10 +126,10 @@
   ; A plane can only fly between cities which have an airport
   (:action fly-airplane
     :parameters (?airplane - airplane ?from - airport ?to - airport)
-    :precondition (at ?airplane ?from)
+    :precondition (at-place ?airplane ?from)
     :effect (and
-      (not (at ?airplane ?from))
-      (at ?airplane ?to)
+      (not (at-place ?airplane ?from))
+      (at-place ?airplane ?to)
     )
   )
 )
