@@ -1,52 +1,52 @@
 (define (domain robot)
   (:requirements :typing :fluents :time :negative-preconditions :timed-initial-literals)
-  (:types garden obj robot)
+  (:types
+    garden obj robot
+  )
 
   (:predicates
-    (at-robot   ?r - robot  ?l - garden)
-    (at-obj     ?b - obj    ?r - garden)
-    (free       ?r - robot)
-    (moving     ?r - robot)
-    (charging   ?r - robot)
-    (moving-path  ?r - robot  ?a - garden ?b - garden)
-    (carry      ?o - obj    ?r - robot)
-    (allowed    ?r - robot  ?l - garden)
-    (path       ?a - garden ?b - garden)
+    (at-robot ?r - robot ?l - garden)
+    (at-obj ?b - obj ?r - garden)
+    (free ?r - robot)
+    (moving ?r - robot)
+    (charging ?r - robot)
+    (moving-path ?r - robot ?a - garden ?b - garden)
+    (carry ?o - obj ?r - robot)
+    (allowed ?r - robot ?l - garden)
+    (path ?a - garden ?b - garden)
   )
 
   (:functions
-    (speed      ?r - robot)
-    (battery    ?r - robot)
-    (distance   ?a - garden   ?b - garden)
+    (speed ?r - robot)
+    (battery ?r - robot)
+    (distance ?a - garden ?b - garden)
     (time)
   )
 
-
-	(:action pick
-		:parameters (?o - obj ?l - garden ?r - robot)
-		:precondition   (and
+  (:action pick
+    :parameters (?o - obj ?l - garden ?r - robot)
+    :precondition (and
       (at-obj ?o ?l)
       (at-robot ?r ?l)
       (free ?r)
     )
-		:effect (and
+    :effect (and
       (carry ?o ?r)
       (not (at-obj ?o ?l))
       (not (free ?r)))
-    )
+  )
 
-	(:action drop
-		:parameters     (?o - obj ?l - garden ?r - robot)
-		:precondition   (and  (carry ?o ?r) (at-robot ?r ?l))
-    :effect         (and (at-obj ?o ?l) (free ?r)
-                    (not (carry ?o ?r))))
+  (:action drop
+    :parameters (?o - obj ?l - garden ?r - robot)
+    :precondition (and (carry ?o ?r) (at-robot ?r ?l))
+    :effect (and (at-obj ?o ?l) (free ?r)
+      (not (carry ?o ?r)))
+  )
 
   (:action startMove
     :parameters (?r - robot ?a - garden ?b - garden)
     :precondition (and
-      (allowed ?r ?b)
       (at-robot ?r ?a)
-      (path ?a ?b)
       (not (moving ?r))
       (not (charging ?r))
     )
@@ -71,16 +71,15 @@
   )
 
   (:process movingProcess
-		:parameters(?r - robot)
-		:precondition (and
-			(moving ?r)
-		)
-		:effect (and
-			(decrease (battery ?r) (* 5 #t))
-			(increase (moved-distance ?r) (* #t (speed ?r)))
-		)
-	)
-
+    :parameters(?r - robot)
+    :precondition (and
+      (moving ?r)
+    )
+    :effect (and
+      (decrease (battery ?r) (* 5 #t))
+      (increase (moved-distance ?r) (* #t (speed ?r)))
+    )
+  )
 
   (:event arrived
     :parameters(?r - robot ?a - garden ?b - garden)
@@ -107,46 +106,47 @@
   )
 
   (:action startCharge
-		:parameters (?r - robot)
-		:precondition (and
-      (<= (battery ?r) 50)
+    :parameters (?r - robot)
+    :precondition (and
+      ; (<= (battery ?r) 50)
     )
-		:effect (and
+    :effect (and
       (not (moving ?r))
       (charging ?r)
     )
   )
 
   (:process charging
-		:parameters(?r - robot)
-		:precondition (and
-			(charging ?r)
+    :parameters(?r - robot)
+    :precondition (and
+      (charging ?r)
       (<= (battery ?r) 100)
-		)
-		:effect (and
-			;(increase (battery ?r) (* (* (- 100 (battery ?r)) 0.1) #t))
-      (increase (battery ?r) #t)
-		)
-	)
+    )
+    :effect (and
+      (increase
+        (battery ?r)
+        (* (* (- 100 (battery ?r)) 0.1) #t))
+      ; (increase (battery ?r) #t)
+    )
+  )
 
   (:event stopCharge
-		:parameters (?r - robot)
-		:precondition (and
+    :parameters (?r - robot)
+    :precondition (and
       (>= (battery ?r) 90)
       (charging ?r)
     )
-		:effect (and
+    :effect (and
       (not (charging ?r))
     )
   )
 
-
   (:process timeFlow
-		:parameters()
-		:precondition ()
-		:effect (and
-			(increase (time) #t)
-		)
-	)
+    :parameters()
+    :precondition ()
+    :effect (and
+      (increase (time) #t)
+    )
+  )
 
 )

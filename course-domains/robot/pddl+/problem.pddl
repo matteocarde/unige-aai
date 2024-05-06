@@ -1,40 +1,24 @@
 (define (problem pb1)
   (:domain robot)
   (:objects
-      gardenA - garden gardenB - garden gardenC - garden
-      ball1 - obj ball2 - obj eve - robot
-      wally - robot)
-	(:init
-		(at-robot wally gardenA)
-		;(at-robot eve gardenB)
-		(free wally)
-		(free eve)
-		(at-obj ball1 gardenA)
-		(at-obj ball2 gardenA)
-		(allowed eve gardenB)
-		(allowed eve gardenC)
-		(allowed wally gardenA)
-		(allowed wally gardenB)
-		(allowed wally gardenC)
+    gardenA gardenB - garden
+    ball1 ball2 - obj
+    wally - robot
+  )
+  (:init
+    (at-robot wally gardenA)
+    (free wally)
+    (at-obj ball1 gardenA)
+    (at-obj ball2 gardenA)
     (= (speed wally) 1)
-    (= (speed eve) 3)
     (= (battery wally) 100)
-    (= (battery eve) 100)
     (= (distance gardenA gardenB) 10)
     (= (distance gardenB gardenA) 10)
-    (= (distance gardenB gardenC) 20)
-    (= (distance gardenC gardenB) 20)
-    (= (distance gardenA gardenC) 30)
-    (= (distance gardenC gardenA) 30)
-    (path gardenA gardenB)
-    (path gardenB gardenA)
-    (path gardenA gardenC)
-    (path gardenC gardenA)
-    (path gardenB gardenC)
-    (path gardenC gardenB)
     (= (time) 0)
-	)
+  )
 
-  (:goal (and (at-obj ball1 gardenC)))
+  (:goal
+    (and (at-obj ball1 gardenB) (at-obj ball2 gardenB))
+  )
 
 )
